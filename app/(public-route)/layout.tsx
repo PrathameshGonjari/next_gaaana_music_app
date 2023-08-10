@@ -13,10 +13,10 @@ const LoginPageLayout:FC<LoginPageLayoutType> = ({ children }) => {
       <LoginPageImage />
       <Container style={{ maxWidth: 375, maxHeight: 679, padding: "0px" }}>
         <Grid direction="column" container>
-          <Grid style={{ marginTop: 150 }} item xs={12} sm={12} md={6} lg={6}>
+          <Grid style={{ marginTop: 80 }} item xs={12} sm={12} md={6} lg={6}>
             <LoginPageLogo />
           </Grid>
-          <Grid style={{ marginTop: 64 }} item xs={12} sm={12} md={6} lg={6}>
+          <Grid item xs={12} sm={12} md={6} lg={6}>
             {children}
           </Grid>
         </Grid>

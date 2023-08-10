@@ -1,3 +1,4 @@
+import NavigationBar from "@/components/NavBar";
 import { FC } from "react";
 
 interface LoginPageLayoutType {
@@ -7,6 +8,7 @@ interface LoginPageLayoutType {
 const LoginPageLayout: FC<LoginPageLayoutType> = ({ children }) => {
   return (
     <>
+      <NavigationBar/>
       {children}
     </>
   );

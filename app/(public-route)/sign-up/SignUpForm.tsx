@@ -7,7 +7,7 @@ import {
 import InputField from "@/components/InputField";
 import { initialState } from "./helper";
 import CustomButton from "@/components/CustomButton";
-
+import { useRouter } from "next/navigation";
 declare interface UserType {
   name: string;
   email: string;
@@ -16,6 +16,8 @@ declare interface UserType {
 
 const SignUpForm = () => {
   const [user, setUser] = useState<UserType>(initialState);
+
+  const router = useRouter();
 
   const handleInputChange = (e: ChangeEventType) => {
     setUser((pre) => {
@@ -32,7 +34,7 @@ const SignUpForm = () => {
         method: "POST",
         body: JSON.stringify(user),
       });
-      console.log(res);
+      router.replace("/sign-in");
     } catch (error) {
       console.log("error");
     }
