@@ -1,3 +1,6 @@
+import ReduxProvider from "@/redux/provider";
+import StyledComponentsRegistry from "@/registry";
+import ThemeRegistry from "@/theme/ThemeRegistry";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -12,7 +15,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <StyledComponentsRegistry>
+        <ThemeRegistry>
+          <body>
+            <ReduxProvider>{children}</ReduxProvider>
+          </body>
+        </ThemeRegistry>
+      </StyledComponentsRegistry>
     </html>
   );
 }
