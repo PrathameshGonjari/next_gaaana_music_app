@@ -38,7 +38,7 @@ const SignInForm = () => {
       if (res?.error) return console.log(res.error);
       router.replace("/");
     } catch (error) {
-      console.log("error");
+      console.log("error", error);
     }
   };
 
