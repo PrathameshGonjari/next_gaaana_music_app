@@ -34,6 +34,8 @@ const SignUpForm = () => {
         method: "POST",
         body: JSON.stringify(user),
       });
+      console.log('res: ', res);
+      
       router.replace("/sign-in");
     } catch (error) {
       console.log("error");
