@@ -8,13 +8,14 @@ function setUserProperties(target: Record<string, any>, source: Record<string, a
   target.name = source.name;
 }
 
+startDb();
+
 export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
   },
   providers: [
     CredentialsProvider({
-      id: "credentials",
       type: "credentials",
       credentials: {},
       async authorize(credentials, req) {
@@ -22,8 +23,6 @@ export const authOptions: NextAuthOptions = {
           email: string;
           password: string;
         };
-
-        await startDb();
 
         const user = await UserModal.findOne({ email });
         if (!user) throw Error("email/password mismatch!");
@@ -55,7 +54,7 @@ export const authOptions: NextAuthOptions = {
   },
   pages: {
     signIn: "/sign-in",
-    error: "/error",
+    error: "/sign-in",
   },
   secret: process.env.NEXTAUTH_SECRET,
 };
