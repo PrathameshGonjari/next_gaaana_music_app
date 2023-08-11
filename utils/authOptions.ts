@@ -3,12 +3,18 @@ import UserModal from "@/models/userModel";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
+function setUserProperties(target: Record<string, any>, source: Record<string, any>) {
+  target.id = source.id;
+  target.name = source.name;
+}
+
 export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
   },
   providers: [
     CredentialsProvider({
+      id: "credentials",
       type: "credentials",
       credentials: {},
       async authorize(credentials, req) {
@@ -34,17 +40,15 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    jwt(params: any) {
+    async jwt(params: any) {
       if (params?.user?.name) {
-        params.token.name = params.user.name;
-        params.token.id = params.user.id;
+        setUserProperties(params.token, params.user);
       }
       return params.token;
     },
-    session({ session, token }) {
+    async session({ session, token }) {
       if (session?.user) {
-        (session.user as { id: string }).id = token.id as string;
-        (session.user as { name: string }).name = token.name as string;
+        setUserProperties(session.user, token);
       }
       return session;
     },
