@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// import services from "../../services";
+import services from "@/services";
 
 export const initialMusic = {
   artistName: "",
@@ -19,12 +19,11 @@ export const getMusic = async (filter: FilterType) => {
     })?.toString();
 
   try {
-    const {data , status} : any = {}
-    // const {
-    //   data: { data, status },
-    // } = (await services.post(`search${custom_path}`, {})) as {
-    //   data: { data: { results: [] }; status: number };
-    // };
+    const {
+      data: { data, status },
+    } = (await services.post(`search${custom_path}`, {})) as {
+      data: { data: { results: [] }; status: number };
+    };
     if (status === 200) {
       return { data, success: true };
     } else {

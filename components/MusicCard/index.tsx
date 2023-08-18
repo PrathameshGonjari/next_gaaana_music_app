@@ -5,14 +5,12 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import IconButton from "@mui/material/IconButton";
 
-import { MusicCardWrapper, Wrapper } from "./style";
+import { playPause, updateActiveMusic } from "@/redux/features/music-slice";
 import { Typography } from "@mui/material";
-// import { addActiveMusic } from "@src/actions";
+import { memo } from "react";
 import { useDispatch } from "react-redux";
-import { memo, useContext } from "react";
 import Flex from "../Flex";
-// import MusicContext from "@src/context/MuiscList/musicContext";
-
+import { MusicCardWrapper, Wrapper } from "./style";
 interface MusicCardProps {
   image: string;
   AlbumTitle: string;
@@ -23,15 +21,11 @@ interface MusicCardProps {
 const MusicCard = (props: MusicCardProps) => {
   const { image, AlbumTitle, AlbumSubTitle, music } = props;
 
-//   const dispatch = useDispatch();
-
-//   const [{ setMusicState }] = useContext(MusicContext);
+  const dispatch = useDispatch();
 
   const onPlayButtonClick = (music: MusicType) => {
-    // dispatch(addActiveMusic(music));
-    // setMusicState({
-    //   playMusic: true,
-    // });
+    dispatch(updateActiveMusic(music));
+    dispatch(playPause(true));
     return;
   };
 

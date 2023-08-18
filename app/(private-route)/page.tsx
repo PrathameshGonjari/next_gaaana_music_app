@@ -1,29 +1,26 @@
-"use client"
+"use client";
 import { useEffect, useRef } from "react";
-// import {
-//   addActiveMusic,
-//   addMusic,
-//   handleFilter,
-//   handleLoadMoreMusicList,
-//   handleLoading,
-// } from "@src/actions";
 
-// import { initialState } from "@src/store/musicappreducer";
-import { useDispatch, useSelector } from "react-redux";
-import MusicList from "./components/MusicList";
-import { getMusic, handleSearch } from "./helper";
 import Flex from "@/components/Flex";
-import UseScroll from "@/utils/useScroll";
 import useIntersectionDetection from "@/hooks/useIntersectionDetection";
+import {
+  initialState,
+  loadMusic,
+  loadMusicList,
+  updateActiveMusic,
+  updateFilter,
+  updateLoading,
+} from "@/redux/features/music-slice";
+import UseScroll from "@/utils/useScroll";
+import { useDispatch, useSelector } from "react-redux";
 import CustomSearchBar from "./components/CustomSearchBar";
 import LoadingMusicList from "./components/LoadingMusicList";
+import MusicList from "./components/MusicList";
+import { getMusic, handleSearch } from "./helper";
 
 const HomePage = () => {
-  // const { filter, loading, list } = useSelector(
-  //   (state: AppReducerState) => state.musicappreducer
-  // );
 
-const { filter, loading, list }: any = {}
+  const { filter, loading, list } = useSelector((state: any) => state.musicappreducer);
 
   const offSetRef = useRef(0);
   const filterRef = useRef(filter);
@@ -37,21 +34,22 @@ const { filter, loading, list }: any = {}
 
   const onFirstRender = () => {
     UseScroll(0, 0);
-    // const initialFilterState = initialState?.filter;
-    // dispatch(handleFilter(initialFilterState));
-    // filterRef.current = initialFilterState;
-    // dispatch(handleLoading(true));
+    const initialFilterState = initialState?.filter;
+    dispatch(updateFilter(initialFilterState));
+    filterRef.current = initialFilterState;
+    dispatch(updateLoading(true));
     laodMusic(filter);
   };
 
   const onSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    // dispatch(handleLoading(true));
+    dispatch(updateLoading(true));
+    console.log('filter: ', filter);
     const { updatedFilter, results } = await handleSearch(e, filter);
-    // dispatch(handleLoading(false));
-    // dispatch(addMusic(results));
+    dispatch(updateLoading(false));
+    dispatch(loadMusic(results));
     filterRef.current = updatedFilter;
     offSetRef.current = 0;
-    // dispatch(handleFilter(updatedFilter));
+    dispatch(updateFilter(updatedFilter));
   };
 
   const laodMusic = async (filter: FilterType) => {
@@ -59,32 +57,32 @@ const { filter, loading, list }: any = {}
     const data = (await getMusic(filter)) as any;
     if (data?.success) {
       const musicList = data?.data?.results;
-      // dispatch(addMusic(musicList));
-      // dispatch(addActiveMusic(musicList[0]));
+      dispatch(loadMusic(musicList));
+      dispatch(updateActiveMusic(musicList[0]));
     } else {
       //show error message
     }
-    // dispatch(handleLoading(false));
+    dispatch(updateLoading(false));
   };
 
   const onLoadMore = async () => {
     if (loading) return;
     offSetRef.current = offSetRef.current + 25;
-    // dispatch(handleLoading(true));
+    dispatch(updateLoading(true));
     const updatedFilter = {
       ...filterRef.current,
       offset: offSetRef.current,
     };
     filterRef.current = updatedFilter;
-    // dispatch(handleFilter(updatedFilter));
+    dispatch(updateFilter(updatedFilter));
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const res = (await getMusic(filter)) as any;
     if (res?.success) {
-      // dispatch(handleLoadMoreMusicList(res?.data?.results));
+      dispatch(loadMusicList(res?.data?.results));
     } else {
       // show error message
     }
-    // dispatch(handleLoading(false));
+    dispatch(updateLoading(false));
   };
 
   useIntersectionDetection({ triggerRef, callBack: onLoadMore });

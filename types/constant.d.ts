@@ -31,6 +31,7 @@ declare interface MusicAppDataType {
   activeMusic: MusicType;
   loading: boolean;
   loadMoreMusicList?: Array;
+  playMusic: boolean;
   musicList?: Array;
 }
 declare interface UserActionType {
