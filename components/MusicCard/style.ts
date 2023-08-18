@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
@@ -7,11 +7,11 @@ export const Wrapper = styled.div`
     height: 180px;
     object-fit: contain;
   }
-  #parent .hidden-child{
+  #parent .hidden-child {
     visibility: hidden;
   }
 
-  #parent:hover .hidden-child{
+  #parent:hover .hidden-child {
     visibility: visible;
   }
   #parent:hover {

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import MediaPlayer from "@/components/MediaPlayer";
 import NavigationBar from "@/components/NavBar";
 import { playPause } from "@/redux/features/music-slice";
@@ -9,22 +9,23 @@ interface LoginPageLayoutType {
 }
 
 const LoginPageLayout: FC<LoginPageLayoutType> = ({ children }) => {
-
-  const { activeMusic, playMusic } = useSelector((state: any) => state.musicappreducer);
+  const { activeMusic, playMusic } = useSelector(
+    (state: any) => state.musicappreducer
+  );
 
   const dispatch = useDispatch();
 
   const handleStop = () => {
     dispatch(playPause(true));
   };
-
+ 
   const handlePlayPause = (playMusicState: boolean) => {
     dispatch(playPause(playMusicState));
   };
 
   return (
     <>
-      <NavigationBar/>
+      <NavigationBar />
       {children}
       <MediaPlayer
         playMusic={playMusic}

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import {
   InputWrapper,
@@ -34,11 +34,9 @@ const SignUpForm = () => {
         method: "POST",
         body: JSON.stringify(user),
       });
-      console.log('res: ', res);
-      
-      router.replace("/sign-in");
+      if(res) return router.replace("/sign-in");
     } catch (error) {
-      console.log("error", error);
+      // console.log("error", error);
     }
   };
 

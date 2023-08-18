@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import Flex from "@/components/Flex";
 import useIntersectionDetection from "@/hooks/useIntersectionDetection";
 import {
-  initialState,
+  initialState,    
   loadMusic,
   loadMusicList,
   updateActiveMusic,
@@ -19,8 +19,9 @@ import MusicList from "./components/MusicList";
 import { getMusic, handleSearch } from "./helper";
 
 const HomePage = () => {
-
-  const { filter, loading, list } = useSelector((state: any) => state.musicappreducer);
+  const { filter, loading, list } = useSelector(
+    (state: any) => state.musicappreducer
+  );
 
   const offSetRef = useRef(0);
   const filterRef = useRef(filter);
@@ -43,7 +44,6 @@ const HomePage = () => {
 
   const onSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(updateLoading(true));
-    console.log('filter: ', filter);
     const { updatedFilter, results } = await handleSearch(e, filter);
     dispatch(updateLoading(false));
     dispatch(loadMusic(results));

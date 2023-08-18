@@ -1,5 +1,6 @@
-"use client"
+/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
 import {
   Box,
   CardMedia,
@@ -9,15 +10,15 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { FC, memo, useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 
 import Forward10Icon from "@mui/icons-material/Forward10";
 import PauseCircleIcon from "@mui/icons-material/PauseCircle";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import Replay10Icon from "@mui/icons-material/Replay10";
 import StopCircleIcon from "@mui/icons-material/StopCircle";
-import { IconStyle, MediaContainerWrapper, TinyText } from "./style";
 import Flex from "../Flex";
+import { IconStyle, MediaContainerWrapper, TinyText } from "./style";
 
 interface MediaPlayerType {
   playMusic: boolean;
@@ -26,12 +27,12 @@ interface MediaPlayerType {
   handlePlayPause: (playMusicState: boolean) => void;
 }
 
-const MediaPlayer: FC<MediaPlayerType> = ({
+const MediaPlayer = ({
   playMusic,
   activeMusic,
   handleStop,
   handlePlayPause,
-}) => {
+}: MediaPlayerType) => {
   const theme = useTheme();
   const [position, setPosition] = useState(0);
   const [duration, setDuration] = useState<number>(0); //seconds
@@ -102,7 +103,7 @@ const MediaPlayer: FC<MediaPlayerType> = ({
   };
 
   const forwardMusic = () => {
-    progressBar.current.value = Number(progressBar?.current?.value + 10);
+    progressBar.current.value = Number(parseInt(progressBar?.current?.value) + 10);
     audioPlayer.current.currentTime = progressBar?.current?.value;
     setPosition(Math.floor(progressBar?.current?.value));
   };

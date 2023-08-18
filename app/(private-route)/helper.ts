@@ -10,7 +10,7 @@ export const initialMusic = {
 };
 
 export const getMusic = async (filter: FilterType) => {
-  const custom_path =
+  const customPath =
     "?" +
     new URLSearchParams({
       ...filter,
@@ -21,29 +21,24 @@ export const getMusic = async (filter: FilterType) => {
   try {
     const {
       data: { data, status },
-    } = (await services.post(`search${custom_path}`, {})) as {
+    } = (await services.post(`search${customPath}`, {})) as {
       data: { data: { results: [] }; status: number };
     };
     if (status === 200) {
       return { data, success: true };
-    } else {
-      return { data: null, success: false };
     }
+    return { data: null, success: false };
   } catch (err) {
     return { error: err || "Something Went Wrong" };
   }
 };
 
 let timeId: any = 0;
-export const debounceCell = (
-  debFunction: any,
-  time: number,
-  value?: any
-) => {
+export const debounceCell = (debFunction: any, time: number, value?: any) => {
   if (timeId) {
     clearTimeout(timeId);
   }
-  return new Promise(async (response) => {
+  return new Promise((response) => {
     timeId = setTimeout(async () => {
       const res = await debFunction(value);
       response(res);
@@ -65,6 +60,7 @@ export const handleSearch = async (
   const {
     musicList: {
       data: { results },
+      // eslint-disable-next-line @typescript-eslint/naming-convention
       success,
     },
   } = (await debounceCell(onSearchCB, 500, value)) as {
@@ -74,8 +70,7 @@ export const handleSearch = async (
 
   if (success) {
     return { updatedFilter, results };
-  } else {
-    return { updatedFilter: filter, results: [] };
-    //show error message
   }
+  return { updatedFilter: filter, results: [] };
+  //show error message
 };

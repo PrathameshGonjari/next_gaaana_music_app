@@ -26,7 +26,6 @@ const MusicCard = (props: MusicCardProps) => {
   const onPlayButtonClick = (music: MusicType) => {
     dispatch(updateActiveMusic(music));
     dispatch(playPause(true));
-    return;
   };
 
   return (
