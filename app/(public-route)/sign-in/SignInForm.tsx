@@ -35,10 +35,11 @@ const SignInForm = () => {
         password,
         redirect: false,
       });
-      if (res?.error) return console.log(res.error);
+      if (res?.error) return;
       router.replace("/");
     } catch (error) {
-      console.log("error", error);
+      //errors
+      // console.log("error", error);
     }
   };
 

@@ -1,4 +1,3 @@
-import React, { FC } from "react";
 import {
   Avatar,
   Box,
@@ -8,6 +7,7 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
+import React from "react";
 
 interface SettingsTypes {
   picture: string;
@@ -18,13 +18,13 @@ interface SettingsTypes {
   settings: string[];
 }
 
-const Settings: FC<SettingsTypes> = ({
+const Settings = ({
   picture,
   handleOpenUserMenu,
   anchorElUser,
   handleCloseUserMenu,
   settings,
-}) => {
+}: SettingsTypes) => {
   return (
     <Box sx={{ flexGrow: 0 }}>
       <Tooltip title="Open settings">

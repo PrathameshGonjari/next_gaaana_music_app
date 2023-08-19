@@ -1,6 +1,6 @@
-"use client"
+"use client";
 import { TextField } from "@mui/material";
-import React, { ChangeEvent, FC } from "react";
+import { FC } from "react";
 
 declare interface InputFieldType {
   id: string;

@@ -12,7 +12,7 @@ const settings = ["Logout"];
 const NavigationBar = () => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
-  const [visible, setVisible] = useState<boolean>(false);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -21,17 +21,17 @@ const NavigationBar = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleCloseUserMenu = (event: any) => {
     if (event?.target?.innerHTML === settings[0]) {
-      setVisible(true);
+      setIsVisible(true);
     }
     setAnchorElUser(null);
   };
 
   const handleCloseModal = () => {
-    setVisible(false);
+    setIsVisible(false);
   };
 
   const handleLogout = () => {
-    signOut()
+    signOut();
     handleCloseModal();
   };
 
@@ -53,7 +53,7 @@ const NavigationBar = () => {
         </AppBar>
       </Box>
       <LogOutModal
-        visible={visible}
+        visible={isVisible}
         handleCloseModal={handleCloseModal}
         handleLogout={handleLogout}
       />

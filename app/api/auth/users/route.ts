@@ -38,7 +38,7 @@ export const POST = async (req: Request): Promise<NewResponse> => {
 
     return NextResponse.json({ user: response });
   } catch (error) {
-    console.error("Error:", error);
+    // console.error("Error:", error);
     return NextResponse.json({ error: "An error occurred" }, { status: 500 });
   }
 };

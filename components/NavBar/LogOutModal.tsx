@@ -1,10 +1,10 @@
 import { Typography } from "@mui/material";
 import { FC } from "react";
-import CustomModal from "../Modal";
-import { ModalStyle } from "./style";
-import Flex from "../Flex";
 import CustomButton from "../CustomButton";
 import { BUTTON_TYPE } from "../CustomButton/helper";
+import Flex from "../Flex";
+import CustomModal from "../Modal";
+import { ModalStyle } from "./style";
 
 interface LogOutModalType {
   visible: boolean;
