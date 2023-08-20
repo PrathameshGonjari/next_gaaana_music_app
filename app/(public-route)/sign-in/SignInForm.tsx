@@ -9,6 +9,8 @@ import { initialState } from "./helper";
 import CustomButton from "@/components/CustomButton";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { LinkWrapper } from "../style";
+import Link from "@/components/CustomLink";
 
 declare interface UserType {
   email: string;
@@ -66,6 +68,11 @@ const SignInForm = () => {
       <LoginButtonWrapper>
         <CustomButton handleClick={handleSubmit}>Login</CustomButton>
       </LoginButtonWrapper>
+      <LinkWrapper>
+        <Link navigateUrl={"sign-up"}>
+          New Account
+        </Link>
+      </LinkWrapper>
     </form>
   );
 };

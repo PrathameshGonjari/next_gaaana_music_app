@@ -8,6 +8,9 @@ import InputField from "@/components/InputField";
 import { initialState } from "./helper";
 import CustomButton from "@/components/CustomButton";
 import { useRouter } from "next/navigation";
+import { Typography } from "@mui/material";
+import { LinkWrapper } from "../style";
+import Link from "@/components/CustomLink";
 declare interface UserType {
   name: string;
   email: string;
@@ -69,8 +72,12 @@ const SignUpForm = () => {
         />
       </InputWrapper>
       <LoginButtonWrapper>
-        <CustomButton handleClick={handleSubmit}>Login</CustomButton>
+        <CustomButton handleClick={handleSubmit}>Register Now</CustomButton>
       </LoginButtonWrapper>
+      <LinkWrapper>
+        <Typography>Already a member?</Typography>
+        <Link navigateUrl={"/"}>Login</Link>
+      </LinkWrapper>
     </form>
   );
 };
