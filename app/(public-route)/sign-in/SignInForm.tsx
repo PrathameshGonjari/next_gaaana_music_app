@@ -1,16 +1,17 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import {
   InputWrapper,
   LoginButtonWrapper,
 } from "../components/LoginPageCard/style";
 import InputField from "@/components/InputField";
-import { initialState } from "./helper";
+import { initialState, signInValitaion } from "./helper";
 import CustomButton from "@/components/CustomButton";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { LinkWrapper } from "../style";
 import Link from "@/components/CustomLink";
+import { Formik } from "formik";
 
 declare interface UserType {
   email: string;
@@ -18,23 +19,12 @@ declare interface UserType {
 }
 
 const SignInForm = () => {
-  const [user, setUser] = useState<UserType>(initialState);
-  const { email, password } = user;
   const router = useRouter();
-  const handleInputChange = (e: ChangeEventType) => {
-    setUser((pre) => {
-      return {
-        ...pre,
-        [e?.target?.id]: e?.target?.value,
-      };
-    });
-  };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (values: UserType) => {
     try {
       const res = await signIn("credentials", {
-        email,
-        password,
+        ...values,
         redirect: false,
       });
       if (res?.error) return;
@@ -46,34 +36,59 @@ const SignInForm = () => {
   };
 
   return (
-    <form>
-      <InputWrapper>
-        <InputField
-          id="email"
-          label="Email"
-          handleChange={handleInputChange}
-          value={user?.email}
-          type="email"
-        />
-      </InputWrapper>
-      <InputWrapper>
-        <InputField
-          id="password"
-          label="Password"
-          value={user?.password}
-          handleChange={handleInputChange}
-          type="password"
-        />
-      </InputWrapper>
-      <LoginButtonWrapper>
-        <CustomButton handleClick={handleSubmit}>Login</CustomButton>
-      </LoginButtonWrapper>
-      <LinkWrapper>
-        <Link navigateUrl={"sign-up"}>
-          New Account
-        </Link>
-      </LinkWrapper>
-    </form>
+    <Formik
+      initialValues={initialState}
+      onSubmit={handleSubmit}
+      validationSchema={signInValitaion}
+    >
+      {(props) => {
+        const {
+          values,
+          touched,
+          errors,
+          isSubmitting,
+          handleChange,
+          handleBlur,
+          handleSubmit,
+        } = props;
+        return (
+          <form>
+            <InputWrapper>
+              <InputField
+                id="email"
+                label="Email"
+                handleChange={handleChange}
+                onBlur={handleBlur}
+                value={values?.email}
+                error={!!(errors.email && touched.email)}
+                errorText={errors.email}
+                type="email"
+              />
+            </InputWrapper>
+            <InputWrapper>
+              <InputField
+                id="password"
+                label="Password"
+                value={values?.password}
+                handleChange={handleChange}
+                onBlur={handleBlur}
+                error={!!(errors.password && touched.password)}
+                errorText={errors.password}
+                type="password"
+              />
+            </InputWrapper>
+            <LoginButtonWrapper>
+              <CustomButton disable={isSubmitting} handleClick={handleSubmit}>
+                Login
+              </CustomButton>
+            </LoginButtonWrapper>
+            <LinkWrapper>
+              <Link navigateUrl={"sign-up"}>New Account</Link>
+            </LinkWrapper>
+          </form>
+        );
+      }}
+    </Formik>
   );
 };
 

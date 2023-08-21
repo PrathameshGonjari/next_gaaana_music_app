@@ -28,6 +28,7 @@
 		"@types/react-dom": "18.2.7",
 		"axios": "^1.4.0",
 		"bcrypt": "^5.1.0",
+		"formik": "^2.4.3",
 		"mongodb": "^5.7.0",
 		"mongoose": "^7.4.2",
 		"next": "13.4.12",
@@ -37,7 +38,8 @@
 		"react-hooks": "^1.0.1",
 		"react-redux": "^8.1.2",
 		"styled-components": "^6.0.7",
-		"typescript": "*"
+		"typescript": "*",
+		"yup": "^1.2.0"
 	},
 	"devDependencies": {
 		"@next/eslint-plugin-next": "^13.4.18",

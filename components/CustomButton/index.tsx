@@ -9,6 +9,7 @@ interface CustomButtonType {
   handleClick: () => void;
   type?: string;
   buttonType?: "submit";
+  disable?: boolean;
 }
 
 const CustomButton: FC<CustomButtonType> = ({
@@ -16,6 +17,7 @@ const CustomButton: FC<CustomButtonType> = ({
   handleClick,
   type,
   buttonType,
+  disable,
 }) => {
   const getBackgroundColor = useCallback(() => {
     if (type === BUTTON_TYPE.PRIMARY) {
@@ -43,6 +45,7 @@ const CustomButton: FC<CustomButtonType> = ({
       textcolor={getTextColor()}
       onClick={handleClick}
       type={buttonType}
+      disabled={disable}
     >
       {children}
     </CustomButtonStyle>

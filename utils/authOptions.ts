@@ -3,12 +3,13 @@ import UserModal from "@/models/userModel";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-function setUserProperties(target: Record<string, any>, source: Record<string, any>) {
+function setUserProperties(
+  target: Record<string, any>,
+  source: Record<string, any>
+) {
   target.id = source.id;
   target.name = source.name;
 }
-
-startDb();
 
 export const authOptions: NextAuthOptions = {
   session: {
@@ -18,17 +19,19 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       type: "credentials",
       credentials: {},
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         const { email, password } = credentials as {
           email: string;
           password: string;
         };
 
+        await startDb();
+
         const user = await UserModal.findOne({ email });
         if (!user) throw Error("email/password mismatch!");
 
-        const passwordmatch = await user.comparePassword(password);
-        if (!passwordmatch) throw Error("email/password mismatch!");
+        const isPasswordmatch = await user.comparePassword(password);
+        if (!isPasswordmatch) throw Error("email/password mismatch!");
 
         return {
           name: user.name,
@@ -39,13 +42,13 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt(params: any) {
+    jwt(params: any) {
       if (params?.user?.name) {
         setUserProperties(params.token, params.user);
       }
       return params.token;
     },
-    async session({ session, token }) {
+    session({ session, token }) {
       if (session?.user) {
         setUserProperties(session.user, token);
       }

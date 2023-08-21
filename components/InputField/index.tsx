@@ -1,5 +1,5 @@
 "use client";
-import { TextField } from "@mui/material";
+import { InputBaseProps, TextField } from "@mui/material";
 import { FC } from "react";
 
 declare interface InputFieldType {
@@ -7,6 +7,9 @@ declare interface InputFieldType {
   label: string;
   value: string;
   handleChange: (e: ChangeEventType) => void;
+  onBlur: InputBaseProps["onBlur"];
+  error: boolean;
+  errorText?: string;
   type?: "password" | "number" | "email";
 }
 
@@ -15,6 +18,9 @@ const InputField: FC<InputFieldType> = ({
   label,
   value,
   handleChange,
+  onBlur,
+  error,
+  errorText,
   type,
 }) => {
   return (
@@ -25,6 +31,9 @@ const InputField: FC<InputFieldType> = ({
       value={value}
       label={label}
       type={type}
+      onBlur={onBlur}
+      error={error}
+      helperText={error && errorText}
     />
   );
 };
