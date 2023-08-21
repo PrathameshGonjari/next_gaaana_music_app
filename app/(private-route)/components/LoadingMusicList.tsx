@@ -8,7 +8,7 @@ interface LoadingMusicListType {
 }
 
 const LoadingMusicList: FC<LoadingMusicListType> = ({ loading }) => {
-  const skeletonArray = Array(12)?.fill("");
+  const skeletonArray = Array(9)?.fill("");
 
   return (
     <LoaderWrapper isloading={loading ? 1 : 0}>
