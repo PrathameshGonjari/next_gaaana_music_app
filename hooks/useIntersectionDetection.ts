@@ -1,4 +1,3 @@
-
 import { debounceCell } from "@/utils/useDebounce";
 import { useCallback, useEffect } from "react";
 
@@ -11,8 +10,8 @@ const useIntersectionDetection = ({
   triggerRef,
   callBack,
 }: UseIntersectionDetectionType) => {
-  const INTERSECTION_THRESHOLD = 5;
-  const LOAD_DELAY_MS = 500;
+  const INTERSECTION_THRESHOLD = 25;
+  const LOAD_DELAY_MS = 1000;
 
   const handleEntry = async (entry: IntersectionObserverEntry) => {
     const boundingRect = entry.boundingClientRect;
@@ -20,7 +19,6 @@ const useIntersectionDetection = ({
     const isScrolling =
       entry.isIntersecting &&
       intersectionRect.bottom - boundingRect.bottom <= INTERSECTION_THRESHOLD;
-
     if (isScrolling) {
       callBack();
     }
