@@ -19,4 +19,5 @@ export const LoginButtonWrapper = styled.div`
 `;
 export const InputWrapper = styled.div`
   margin: 10px;
+  max-width: 195px;
 `;
