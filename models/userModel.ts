@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-catch */
 import { Document, Model, Schema, model, models } from "mongoose";
 import bcrypt from "bcrypt";
 
@@ -11,7 +12,7 @@ interface Methods {
   comparePassword(password: string): Promise<boolean>;
 }
 
-const userSchema = new Schema<UserDocument, {}, Methods>({
+const userSchema = new Schema<UserDocument, object, Methods>({
   email: { type: String, required: true, unique: true },
   name: { type: String, required: true, trim: true },
   password: { type: String, required: true },
@@ -38,4 +39,4 @@ userSchema.methods.comparePassword = async function (passowrd) {
 
 const UserModal = models.User || model("User", userSchema);
 
-export default UserModal as Model<UserDocument, {}, Methods>;
+export default UserModal as Model<UserDocument, object, Methods>;
