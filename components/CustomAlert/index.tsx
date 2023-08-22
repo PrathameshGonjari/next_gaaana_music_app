@@ -15,7 +15,6 @@ const CustomAlert = () => {
     const errorToast = {
       isViewToast: false,
       message: "",
-      type: "",
     } as ToastState;
     dispatch(isShowToast(errorToast));
   };

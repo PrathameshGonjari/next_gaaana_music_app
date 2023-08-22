@@ -3,7 +3,6 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isViewToast: false,
   message: "",
-  type: "",
 } as ToastState;
 
 export const handleToast = (

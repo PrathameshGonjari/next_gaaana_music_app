@@ -34,7 +34,7 @@ declare interface MusicAppDataType {
 declare interface ToastState {
   isViewToast: boolean;
   message: string;
-  type: "error" | "success" | "";
+  type?: "error" | "success";
 }
 
 declare interface AppReducerState {
