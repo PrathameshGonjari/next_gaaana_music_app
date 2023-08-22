@@ -17,28 +17,24 @@ interface NewUserResponse {
 type NewResponse = NextResponse<{ user?: NewUserResponse; error?: string }>;
 
 export const POST = async (req: Request): Promise<NewResponse> => {
-  try {
-    const { email } = await req.json() as NewUserRequest;
+  const body = (await req.json()) as NewUserRequest;
 
-    await startDb(); 
+  await startDb();
 
-    const existingUser = await UserModal.findOne({ email });
+  const oldUser = await UserModal.findOne({ email: body.email });
+  if (oldUser)
+    return NextResponse.json(
+      { error: "email is already in use!" },
+      { status: 422 }
+    );
 
-    if (existingUser) {
-      return NextResponse.json({ error: "Email is already in use!" }, { status: 422 });
-    }
+  const user = await UserModal.create({ ...body });
 
-    const newUser = await UserModal.create({ ...req.body });
-
-    const response: NewUserResponse = {
-      id: newUser._id.toString(),
-      email: newUser.email,
-      name: newUser.name,
-    };
-
-    return NextResponse.json({ user: response });
-  } catch (error) {
-    // console.error("Error:", error);
-    return NextResponse.json({ error: "An error occurred" }, { status: 500 });
-  }
+  return NextResponse.json({
+    user: {
+      id: user._id.toString(),
+      email: user.email,
+      name: user.name,
+    },
+  });
 };

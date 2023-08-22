@@ -12,6 +12,8 @@ import { Typography } from "@mui/material";
 import { LinkWrapper } from "../style";
 import Link from "@/components/CustomLink";
 import { Formik } from "formik";
+import { isShowToast } from "@/redux/features/toast-slice";
+import { useDispatch } from "react-redux";
 declare interface UserType {
   name: string;
   email: string;
@@ -21,15 +23,41 @@ declare interface UserType {
 const SignUpForm = () => {
   const router = useRouter();
 
+  const dispatch = useDispatch();
+
   const handleSubmit = async (values: UserType) => {
     try {
       const res = await fetch("/api/auth/users", {
         method: "POST",
         body: JSON.stringify(values),
       });
-      if (res) return router.replace("/sign-in");
+
+      const errorToast = {
+        isViewToast: true,
+        message: res?.statusText,
+        type: "error",
+      } as ToastState;
+
+      if (res.status !== 200) {
+        dispatch(isShowToast(errorToast));
+        return;
+      }
+
+      const successToast = {
+        isViewToast: true,
+        message: "Login Successful",
+        type: "success",
+      } as ToastState;
+
+      dispatch(isShowToast(successToast));
+      return router.replace("/sign-in");
     } catch (error) {
-      // console.log("error", error);
+      const errorToast = {
+        isViewToast: true,
+        message: "Some thing went wrong",
+        type: "error",
+      } as ToastState;
+      dispatch(isShowToast(errorToast));
     }
   };
 

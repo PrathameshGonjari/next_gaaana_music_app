@@ -42,6 +42,13 @@ const SignInForm = () => {
         dispatch(isShowToast(errorToast));
         return;
       }
+      const successToast = {
+        isViewToast: true,
+        message: "Login Successful",
+        type: "success",
+      } as ToastState;
+
+      dispatch(isShowToast(successToast));
       router.replace("/");
     } catch (error) {
       //errors
