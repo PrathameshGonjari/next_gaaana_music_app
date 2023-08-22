@@ -12,6 +12,8 @@ import { useRouter } from "next/navigation";
 import { LinkWrapper } from "../style";
 import Link from "@/components/CustomLink";
 import { Formik } from "formik";
+import { useDispatch } from "react-redux";
+import { isShowToast } from "@/redux/features/toast-slice";
 
 declare interface UserType {
   email: string;
@@ -21,13 +23,25 @@ declare interface UserType {
 const SignInForm = () => {
   const router = useRouter();
 
+  const dispatch = useDispatch();
+
   const handleSubmit = async (values: UserType) => {
     try {
       const res = await signIn("credentials", {
         ...values,
         redirect: false,
       });
-      if (res?.error) return;
+
+      const errorToast = {
+        isViewToast: true,
+        message: res?.error || "",
+        type: "error",
+      } as ToastState;
+
+      if (res?.error) {
+        dispatch(isShowToast(errorToast));
+        return;
+      }
       router.replace("/");
     } catch (error) {
       //errors

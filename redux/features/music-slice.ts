@@ -60,10 +60,10 @@ export const handleLoading = (
   state: MusicAppDataType,
   action: PayloadAction<boolean>
 ) => {
-  const loading = action.payload;
+  const isLoading = action.payload;
   return {
     ...state,
-    loading,
+    isLoading,
   };
 };
 
@@ -71,10 +71,10 @@ export const handlePlayPause = (
   state: MusicAppDataType,
   action: PayloadAction<boolean>
 ) => {
-  const playMusic = action.payload;
+  const isPlayMusic = action.payload;
   return {
     ...state,
-    playMusic,
+    isPlayMusic,
   };
 };
 
