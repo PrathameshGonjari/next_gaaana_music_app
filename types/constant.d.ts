@@ -1,13 +1,9 @@
 type ChildrenType = string | JSX.Element;
 
-type ChangeEventType = ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-type OffSetRefType = React.MutableRefObject<number>
-type FilterRefType = React.MutableRefObject<FilterType>
+type ChangeEventType = ChangeEvent<HTMLInputElement | HTMLTextAreaElement>;
+type OffSetRefType = React.MutableRefObject<number>;
+type FilterRefType = React.MutableRefObject<FilterType>;
 type TriggerRefType = React.MutableRefObject<null>;
-
-declare interface ContextStateType {
-  playMusic: boolean
-}
 
 interface ActionDataType {
   email: string;
@@ -34,14 +30,17 @@ declare interface MusicAppDataType {
   playMusic: boolean;
   musicList?: Array;
 }
-declare interface UserActionType {
-  type: string;
-  payload: UserDataType;
+
+declare interface ToastState {
+  isViewToast: boolean;
+  message: string;
+  type?: "error" | "success";
 }
 
 declare interface AppReducerState {
-  musicappreducer: MusicAppDataType;
-  userappreducer: UserDataType;
+  userappreducer: MusicAppDataType;
+  musicappreducer: UserDataType;
+  toastappreducer: ToastState;
 }
 
 declare interface FilterType {
@@ -55,7 +54,6 @@ declare interface MusicListTypes {
   trackName: string;
   artistName: string;
   trackId: number;
-
 }
 
 declare interface MusicType extends MusicListTypes {
@@ -67,8 +65,7 @@ declare interface MusicActionType {
   payload: MusicAppDataType;
 }
 
-
 declare interface SearchBarProps {
-  onFilterChange: (event: ChangeEventType) => void
+  onFilterChange: (event: ChangeEventType) => void;
   filter: FilterType;
 }

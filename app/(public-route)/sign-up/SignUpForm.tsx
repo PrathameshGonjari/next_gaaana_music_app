@@ -1,16 +1,17 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import {
   InputWrapper,
   LoginButtonWrapper,
 } from "../components/LoginPageCard/style";
 import InputField from "@/components/InputField";
-import { initialState } from "./helper";
+import { initialState, signUpValitaion } from "./helper";
 import CustomButton from "@/components/CustomButton";
 import { useRouter } from "next/navigation";
 import { Typography } from "@mui/material";
 import { LinkWrapper } from "../style";
 import Link from "@/components/CustomLink";
+import { Formik } from "formik";
 declare interface UserType {
   name: string;
   email: string;
@@ -18,67 +19,86 @@ declare interface UserType {
 }
 
 const SignUpForm = () => {
-  const [user, setUser] = useState<UserType>(initialState);
-
   const router = useRouter();
 
-  const handleInputChange = (e: ChangeEventType) => {
-    setUser((pre) => {
-      return {
-        ...pre,
-        [e?.target?.id]: e?.target?.value,
-      };
-    });
-  };
-
-  const handleSubmit = async () => {
+  const handleSubmit = async (values: UserType) => {
     try {
       const res = await fetch("/api/auth/users", {
         method: "POST",
-        body: JSON.stringify(user),
+        body: JSON.stringify(values),
       });
-      if(res) return router.replace("/sign-in");
+      if (res) return router.replace("/sign-in");
     } catch (error) {
       // console.log("error", error);
     }
   };
 
   return (
-    <form>
-      <InputWrapper>
-        <InputField
-          id="name"
-          label="Name"
-          handleChange={handleInputChange}
-          value={user?.name}
-        />
-      </InputWrapper>
-      <InputWrapper>
-        <InputField
-          id="email"
-          label="Email"
-          handleChange={handleInputChange}
-          value={user?.email}
-          type="email"
-        />
-      </InputWrapper>
-      <InputWrapper>
-        <InputField
-          id="password"
-          label="Password"
-          value={user?.password}
-          handleChange={handleInputChange}
-          type="password"
-        />
-      </InputWrapper>
-      <LoginButtonWrapper>
-        <CustomButton handleClick={handleSubmit}>Register Now</CustomButton>
-      </LoginButtonWrapper>
-      <LinkWrapper>
-        <Typography>Already a member?</Typography>
-        <Link navigateUrl={"/"}>Login</Link>
-      </LinkWrapper>
-    </form>
+    <Formik
+      initialValues={initialState}
+      onSubmit={handleSubmit}
+      validationSchema={signUpValitaion}
+    >
+      {(props) => {
+        const {
+          values,
+          touched,
+          errors,
+          isSubmitting,
+          handleChange,
+          handleBlur,
+          handleSubmit,
+        } = props;
+        return (
+          <form>
+            <InputWrapper>
+              <InputField
+                id="name"
+                label="Name"
+                handleChange={handleChange}
+                onBlur={handleBlur}
+                value={values?.name}
+                error={!!(errors.name && touched.name)}
+                errorText={errors.name}
+              />
+            </InputWrapper>
+            <InputWrapper>
+              <InputField
+                id="email"
+                label="Email"
+                handleChange={handleChange}
+                onBlur={handleBlur}
+                value={values?.email}
+                error={!!(errors.email && touched.email)}
+                errorText={errors.email}
+                type="email"
+              />
+            </InputWrapper>
+            <InputWrapper>
+              <InputField
+                id="password"
+                label="Password"
+                handleChange={handleChange}
+                onBlur={handleBlur}
+                value={values?.password}
+                error={!!(errors.password && touched.password)}
+                errorText={errors.password}
+                type="password"
+              />
+            </InputWrapper>
+            <LoginButtonWrapper>
+              <CustomButton disable={isSubmitting} handleClick={handleSubmit}>
+                Register Now
+              </CustomButton>
+            </LoginButtonWrapper>
+            <LinkWrapper>
+              <Typography>Already a member?</Typography>
+              <Link navigateUrl={"/"}>Login</Link>
+            </LinkWrapper>
+          </form>
+        );
+      }}
+    </Formik>
   );
 };
 

@@ -7,7 +7,7 @@ export const debounceCell = (
   if (timeId) {
     clearTimeout(timeId);
   }
-  return new Promise(async (response) => {
+  return new Promise((response) => {
     timeId = setTimeout(async () => {
       const res = await debFunction(value);
       response(res);
