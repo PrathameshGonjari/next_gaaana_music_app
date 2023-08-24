@@ -9,7 +9,7 @@ export const initialState = {
   },
   activeMusic: {},
   isPlayMusic: false,
-  isLoading: false,
+  isLoading: true,
 } as MusicAppDataType;
 
 export const handleAddMusic = (

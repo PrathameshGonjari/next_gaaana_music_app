@@ -17,6 +17,8 @@ import CustomSearchBar from "./components/CustomSearchBar";
 import LoadingMusicList from "./components/LoadingMusicList";
 import MusicList from "./components/MusicList";
 import { getMusic, handleSearch } from "./helper";
+import { Message } from "@/constants";
+import { isShowToast } from "@/redux/features/toast-slice";
 
 const HomePage = () => {
   const { filter, isLoading, list } = useSelector(
@@ -53,17 +55,31 @@ const HomePage = () => {
   };
 
   const laodMusic = async (filter: FilterType) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const data = (await getMusic(filter)) as any;
-  
-    if (data?.success) {
-      const musicList = data?.data;
-      dispatch(loadMusic(musicList));
-      dispatch(updateActiveMusic(musicList[0]));
-    } else {
-      //show error message
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const data = (await getMusic(filter)) as any;
+      if (data.error) {
+        const errorToast = {
+          isViewToast: true,
+          message: data?.error ?? Message.DEFAULT,
+          type: "error",
+        } as ToastState;
+        dispatch(isShowToast(errorToast));
+      }
+      if (data?.success) {
+        const musicList = data?.data;
+        dispatch(loadMusic(musicList));
+        dispatch(updateActiveMusic(musicList[0]));
+      }
+      dispatch(updateLoading(false));
+    } catch (error) {
+      const errorToast = {
+        isViewToast: true,
+        message: Message.DEFAULT,
+        type: "error",
+      } as ToastState;
+      dispatch(isShowToast(errorToast));
     }
-    dispatch(updateLoading(false));
   };
 
   const onLoadMore = async () => {
@@ -78,7 +94,7 @@ const HomePage = () => {
     dispatch(updateFilter(updatedFilter));
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const res = (await getMusic(filter)) as any;
-    
+
     if (res?.success) {
       dispatch(loadMusicList(res?.data));
     } else {
@@ -87,12 +103,16 @@ const HomePage = () => {
     dispatch(updateLoading(false));
   };
 
-  useIntersectionDetection({arrayLength: list?.length, triggerRef, callBack: onLoadMore });
-  
+  useIntersectionDetection({
+    arrayLength: list?.length,
+    triggerRef,
+    callBack: onLoadMore,
+  });
+
   return (
     <Flex direction="column" style={{ marginTop: 100 }}>
       <CustomSearchBar filter={filter} onFilterChange={onSearch} />
-      <MusicList list={list} />
+      <MusicList isLoading={isLoading} list={list} />
       <Flex ref={triggerRef}>
         <LoadingMusicList isLoading={isLoading} />
       </Flex>

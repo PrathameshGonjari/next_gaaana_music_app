@@ -5,10 +5,11 @@ import { FC } from "react";
 
 interface MusicListType {
   list: MusicType[];
+  isLoading: boolean;
 }
 
-const MusicList: FC<MusicListType> = ({ list }) => {
-  if (!list?.length) return <NoData />;
+const MusicList: FC<MusicListType> = ({ list, isLoading }) => {
+  if(!list?.length && !isLoading) return <NoData />;
   return (
     <Box
       sx={{
