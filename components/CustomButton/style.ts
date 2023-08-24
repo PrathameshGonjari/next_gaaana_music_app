@@ -12,7 +12,7 @@ export const CustomButtonStyle = styled(Button)<{
     color: ${(props) => props?.textcolor};
     padding: 12px 20px;
     border-radius: 10px 10px;
-    width: 100%;
+    // width: 100%;
     &:hover {
       background-color: ${Colors.scorpio_scarlet_seal};
       color: ${Colors.white};
