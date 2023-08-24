@@ -5,3 +5,4 @@ export const LoaderWrapper = styled.div<{
 }>`
   display: ${({ isloading }) => (isloading ? "block" : "none")};
 `;
+

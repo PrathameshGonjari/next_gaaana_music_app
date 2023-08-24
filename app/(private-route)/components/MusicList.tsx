@@ -1,4 +1,5 @@
 import MusicCard from "@/components/MusicCard";
+import NoData from "@/components/NoData";
 import { Box, Grid } from "@mui/material";
 import { FC } from "react";
 
@@ -7,6 +8,7 @@ interface MusicListType {
 }
 
 const MusicList: FC<MusicListType> = ({ list }) => {
+  if (!list?.length) return <NoData />;
   return (
     <Box
       sx={{
