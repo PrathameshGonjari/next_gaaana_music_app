@@ -25,9 +25,9 @@ declare interface MusicAppDataType {
   list: Array;
   filter: FilterType;
   activeMusic: MusicType;
-  loading: boolean;
+  isLoading: boolean;
   loadMoreMusicList?: Array;
-  playMusic: boolean;
+  isPlayMusic: boolean;
   musicList?: Array;
 }
 
@@ -38,8 +38,8 @@ declare interface ToastState {
 }
 
 declare interface AppReducerState {
-  userappreducer: MusicAppDataType;
-  musicappreducer: UserDataType;
+  userappreducer: UserDataType;
+  musicappreducer: MusicAppDataType;
   toastappreducer: ToastState;
 }
 
@@ -68,4 +68,46 @@ declare interface MusicActionType {
 declare interface SearchBarProps {
   onFilterChange: (event: ChangeEventType) => void;
   filter: FilterType;
+}
+
+
+declare interface Songs {
+  artistName: string;
+  artworkUrl30: string;
+  artworkUrl60: string;
+  artworkUrl100: string;
+  collectionArtistId: number;
+  collectionArtistViewUrl: string;
+  collectionCensoredName: string;
+  collectionExplicitness: string;
+  collectionHdPrice: number;
+  collectionId: number;
+  collectionName: string;
+  collectionPrice: number;
+  collectionViewUrl: string;
+  contentAdvisoryRating: string;
+  country: string;
+  currency: string;
+  discCount: number;
+  discNumber: number;
+  hasITunesExtras: boolean;
+  kind: string;
+  longDescription: string;
+  previewUrl: string;
+  primaryGenreName: string;
+  releaseDate: string;
+  shortDescription: string;
+  trackCensoredName: string;
+  trackCount: number;
+  trackExplicitness: string;
+  trackHdPrice: number;
+  trackHdRentalPrice: number;
+  trackId: number;
+  trackName: string;
+  trackNumber: number;
+  trackPrice: number;
+  trackRentalPrice: number;
+  trackTimeMillis: number;
+  trackViewUrl: string;
+  wrapperType: string;
 }

@@ -20,10 +20,13 @@ export const getMusic = async (filter: FilterType) => {
 
   try {
     const {
-      data: { data, status },
-    } = (await services.post(`search${customPath}`, {})) as {
-      data: { data: { results: [] }; status: number };
+      data: {
+        data: { data, status },
+      },
+    } = (await services.get(`getSongs${customPath}`)) as {
+      data: { data: { data: Array<Songs>; status: number } };
     };
+
     if (status === 200) {
       return { data, success: true };
     }
@@ -59,18 +62,19 @@ export const handleSearch = async (
 
   const {
     musicList: {
-      data: { results },
+      data,
       // eslint-disable-next-line @typescript-eslint/naming-convention
       success,
     },
   } = (await debounceCell(onSearchCB, 500, value)) as {
-    musicList: { data: { results: MusicListTypes[] }; success: boolean };
+    musicList: { data: MusicListTypes[]; success: boolean };
   };
+  
   const updatedFilter = { ...filter, offset: 0, term: value };
 
   if (success) {
-    return { updatedFilter, results };
+    return { updatedFilter, data };
   }
-  return { updatedFilter: filter, results: [] };
+  return { updatedFilter: filter, data: [] };
   //show error message
 };

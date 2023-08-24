@@ -3,20 +3,20 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 export const initialState = {
   list: [],
   filter: {
-    term: "top 100",
+    term: "",
     offset: 0,
     limit: 12,
   },
   activeMusic: {},
-  playMusic: false,
-  loading: false,
+  isPlayMusic: false,
+  isLoading: false,
 } as MusicAppDataType;
 
 export const handleAddMusic = (
   state: MusicAppDataType,
   action: PayloadAction<MusicListTypes[]>
 ) => {
-  const musicList = action.payload;
+  const musicList = action?.payload;
   return {
     ...state,
     list: musicList,
