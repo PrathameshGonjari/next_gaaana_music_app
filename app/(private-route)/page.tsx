@@ -87,7 +87,7 @@ const HomePage = () => {
     dispatch(updateLoading(false));
   };
 
-  useIntersectionDetection({ triggerRef, callBack: onLoadMore });
+  useIntersectionDetection({arrayLength: list?.length, triggerRef, callBack: onLoadMore });
   
   return (
     <Flex direction="column" style={{ marginTop: 100 }}>

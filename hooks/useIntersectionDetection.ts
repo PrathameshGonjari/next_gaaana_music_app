@@ -2,11 +2,13 @@ import { debounceCell } from "@/utils/useDebounce";
 import { useCallback, useEffect } from "react";
 
 interface UseIntersectionDetectionType {
+  arrayLength: number;
   triggerRef: TriggerRefType;
   callBack: () => void;
 }
 
 const useIntersectionDetection = ({
+  arrayLength,
   triggerRef,
   callBack,
 }: UseIntersectionDetectionType) => {
@@ -19,6 +21,7 @@ const useIntersectionDetection = ({
     const isScrolling =
       entry.isIntersecting &&
       intersectionRect.bottom - boundingRect.bottom <= INTERSECTION_THRESHOLD;
+    if(arrayLength < 12) return;
     if (isScrolling) {
       callBack();
     }
