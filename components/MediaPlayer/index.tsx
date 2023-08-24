@@ -21,14 +21,14 @@ import Flex from "../Flex";
 import { IconStyle, MediaContainerWrapper, TinyText } from "./style";
 
 interface MediaPlayerType {
-  playMusic: boolean;
+  isPlayMusic: boolean;
   activeMusic: MusicType;
   handleStop: () => void;
   handlePlayPause: (playMusicState: boolean) => void;
 }
 
 const MediaPlayer = ({
-  playMusic,
+  isPlayMusic,
   activeMusic,
   handleStop,
   handlePlayPause,
@@ -57,7 +57,7 @@ const MediaPlayer = ({
     audioPlayer?.current?.pause(); //pause the audio
     cancelAnimationFrame(animationRef.current);
     handlePlayPause(true);
-    togglePlayPause(playMusic);
+    togglePlayPause(isPlayMusic);
   };
 
   const whilePlaying = () => {
@@ -80,19 +80,19 @@ const MediaPlayer = ({
     setPosition(Math.floor(0));
   };
 
-  const togglePlayPause = (playMusic: boolean) => {
+  const togglePlayPause = (isPlayMusic: boolean) => {
     if (!audioPlayer?.current && !activeMusic?.previewUrl) return;
-    const getPlayMusicState = (playMusic: boolean) => {
-      if (playMusic) {
+    const getPlayMusicState = (isPlayMusic: boolean) => {
+      if (isPlayMusic) {
         audioPlayer?.current?.play(); //play the audio
         animationRef.current = requestAnimationFrame(whilePlaying);
       } else {
         audioPlayer?.current?.pause(); //pause the audio
         cancelAnimationFrame(animationRef.current);
       }
-      return !playMusic;
+      return !isPlayMusic;
     };
-    const playMusicState = getPlayMusicState(playMusic);
+    const playMusicState = getPlayMusicState(isPlayMusic);
     handlePlayPause(playMusicState);
   };
 
@@ -186,16 +186,16 @@ const MediaPlayer = ({
                 className="playPauseButton"
               >
                 <IconButton
-                  onClick={() => togglePlayPause(playMusic)}
+                  onClick={() => togglePlayPause(isPlayMusic)}
                   aria-label="play/pause"
                 >
-                  {playMusic ? (
+                  {isPlayMusic ? (
                     <PlayArrowIcon sx={IconStyle} />
                   ) : (
                     <PauseCircleIcon sx={IconStyle} />
                   )}
                 </IconButton>
-                {!playMusic && (
+                {!isPlayMusic && (
                   <IconButton
                     onClick={handleStopButton}
                     aria-label="play/pause"

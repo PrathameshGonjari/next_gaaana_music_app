@@ -4,14 +4,14 @@ import { FC } from "react";
 import { LoaderWrapper } from "./style";
 
 interface LoadingMusicListType {
-  loading: boolean;
+  isLoading: boolean;
 }
 
-const LoadingMusicList: FC<LoadingMusicListType> = ({ loading }) => {
+const LoadingMusicList: FC<LoadingMusicListType> = ({ isLoading }) => {
   const skeletonArray = Array(9)?.fill("");
 
   return (
-    <LoaderWrapper isloading={loading ? 1 : 0}>
+    <LoaderWrapper isloading={isLoading ? 1 : 0}>
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}

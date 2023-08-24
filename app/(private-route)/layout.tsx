@@ -9,8 +9,8 @@ interface LoginPageLayoutType {
 }
 
 const LoginPageLayout: FC<LoginPageLayoutType> = ({ children }) => {
-  const { activeMusic, playMusic } = useSelector(
-    (state: any) => state.musicappreducer
+  const { activeMusic, isPlayMusic } = useSelector(
+    (state: AppReducerState) => state.musicappreducer
   );
 
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ const LoginPageLayout: FC<LoginPageLayoutType> = ({ children }) => {
       <NavigationBar />
       {children}
       <MediaPlayer
-        playMusic={playMusic}
+        isPlayMusic={isPlayMusic}
         activeMusic={activeMusic}
         handleStop={handleStop}
         handlePlayPause={handlePlayPause}

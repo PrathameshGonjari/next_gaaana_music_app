@@ -1,24 +1,22 @@
-import axios from 'axios'
+import axios from "axios";
 
 class Services {
-  get = async (
-    url: string,
-    params?: never,
-  ) => {
+  get = async (url: string, params?: never) => {
     return new Promise((resolve, reject) => {
       try {
-        axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}${url}`, params)
+        axios
+          .get(`${process.env.NEXT_PUBLIC_BASE_URL as string}${url}`, params)
           .then((res) => {
-            return resolve({ data: res })
+            return resolve({ data: res });
           })
           .catch((err) => {
-            return reject(console.log("error has accoured", err))
-          })
+            return reject(console.log("error has accoured", err));
+          });
       } catch (error) {
-        return reject(console.log("error has accoured", error))
+        return reject(console.log("error has accoured", error));
       }
-    })
-  }
+    });
+  };
 
   post = async (
     url: string,
@@ -26,18 +24,24 @@ class Services {
   ) => {
     return new Promise((resolve, reject) => {
       try {
-        axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}${url}`, params)
+        axios
+          .post(`${process.env.NEXT_PUBLIC_BASE_URL as string}${url}`, {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            params,
+          })
           .then((res) => {
-            return resolve({ data: res })
+            return resolve({ data: res });
           })
           .catch((err) => {
-            return reject(console.log("error has accoured", err))
-          })
+            return reject(console.log("error has accoured", err));
+          });
       } catch (error) {
-        return reject(console.log("error has accoured", error))
+        return reject(console.log("error has accoured", error));
       }
-    })
-  }
+    });
+  };
 }
 
-export default new Services()
+export default new Services();

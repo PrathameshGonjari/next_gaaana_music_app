@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import Flex from "@/components/Flex";
 import useIntersectionDetection from "@/hooks/useIntersectionDetection";
 import {
-  initialState,    
+  initialState,
   loadMusic,
   loadMusicList,
   updateActiveMusic,
@@ -19,8 +19,8 @@ import MusicList from "./components/MusicList";
 import { getMusic, handleSearch } from "./helper";
 
 const HomePage = () => {
-  const { filter, loading, list } = useSelector(
-    (state: any) => state.musicappreducer
+  const { filter, isLoading, list } = useSelector(
+    (state: AppReducerState) => state.musicappreducer
   );
 
   const offSetRef = useRef(0);
@@ -44,9 +44,9 @@ const HomePage = () => {
 
   const onSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(updateLoading(true));
-    const { updatedFilter, results } = await handleSearch(e, filter);
+    const { updatedFilter, data } = await handleSearch(e, filter);
     dispatch(updateLoading(false));
-    dispatch(loadMusic(results));
+    dispatch(loadMusic(data));
     filterRef.current = updatedFilter;
     offSetRef.current = 0;
     dispatch(updateFilter(updatedFilter));
@@ -55,8 +55,9 @@ const HomePage = () => {
   const laodMusic = async (filter: FilterType) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const data = (await getMusic(filter)) as any;
+  
     if (data?.success) {
-      const musicList = data?.data?.results;
+      const musicList = data?.data;
       dispatch(loadMusic(musicList));
       dispatch(updateActiveMusic(musicList[0]));
     } else {
@@ -66,8 +67,8 @@ const HomePage = () => {
   };
 
   const onLoadMore = async () => {
-    if (loading) return;
-    offSetRef.current = offSetRef.current + 25;
+    if (isLoading) return;
+    offSetRef.current = offSetRef.current + 12;
     dispatch(updateLoading(true));
     const updatedFilter = {
       ...filterRef.current,
@@ -77,8 +78,9 @@ const HomePage = () => {
     dispatch(updateFilter(updatedFilter));
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const res = (await getMusic(filter)) as any;
+    
     if (res?.success) {
-      dispatch(loadMusicList(res?.data?.results));
+      dispatch(loadMusicList(res?.data));
     } else {
       // show error message
     }
@@ -86,13 +88,13 @@ const HomePage = () => {
   };
 
   useIntersectionDetection({ triggerRef, callBack: onLoadMore });
-
+  
   return (
     <Flex direction="column" style={{ marginTop: 100 }}>
       <CustomSearchBar filter={filter} onFilterChange={onSearch} />
       <MusicList list={list} />
       <Flex ref={triggerRef}>
-        <LoadingMusicList loading={loading} />
+        <LoadingMusicList isLoading={isLoading} />
       </Flex>
     </Flex>
   );

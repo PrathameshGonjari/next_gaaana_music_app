@@ -111,7 +111,7 @@ export const POST = async (req: Request): Promise<NewResponse> => {
     );
   }
   try {
-    const url = `https://itunes.apple.com/search/?term=${"term"}&offset=${"offset"}&limit=${200}`;
+    const url = `https://itunes.apple.com/search/?limit=${500}`;
 
     await startDb();
 
