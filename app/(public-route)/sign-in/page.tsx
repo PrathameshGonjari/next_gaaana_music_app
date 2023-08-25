@@ -105,7 +105,7 @@ const SignIn = () => {
                 </CustomButton>
               </LoginButtonWrapper>
               <LinkWrapper>
-                <Link navigateUrl={"sign-up"}>New Account</Link>
+                <Link navigateUrl={"/sign-up"}>New Account</Link>
               </LinkWrapper>
             </form>
           );
