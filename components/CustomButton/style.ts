@@ -1,7 +1,7 @@
 "use client";
 import Colors from "@/constants/Colors";
 import { Button } from "@mui/material";
-import { styled } from "styled-components";
+import styled from "styled-components";
 
 export const CustomButtonStyle = styled(Button)<{
   backgroundcolor: string;

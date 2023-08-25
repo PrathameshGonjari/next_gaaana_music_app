@@ -1,4 +1,5 @@
 "use client";
+import { Box } from "@mui/material";
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
@@ -17,6 +18,11 @@ export const Wrapper = styled.div`
   #parent:hover {
     opacity: 0.5;
   }
+`;
+
+export const PlayPauseWrapper = styled(Box)`
+  display: flex;
+  align-items: center;
 `;
 
 export const MusicCardWrapper = styled.div`

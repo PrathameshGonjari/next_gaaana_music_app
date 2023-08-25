@@ -1,15 +1,15 @@
 import WebLogoIcon from "@/assets/icons/webIcon.png";
 import { Avatar, Typography } from "@mui/material";
-import Flex from "../Flex";
+import { LogoWrapper } from "./style";
 
 const Logo = () => {
   return (
-    <Flex justifycontent="center" alignitems="center">
+    <LogoWrapper>
       <Avatar src={WebLogoIcon.src} alt="web icon" />
       <Typography style={{ marginLeft: 10 }} variant="h6">
         Gaaana
       </Typography>
-    </Flex>
+    </LogoWrapper>
   );
 };
 
