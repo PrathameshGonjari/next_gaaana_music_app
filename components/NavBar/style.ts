@@ -14,6 +14,12 @@ export const ModalStyle = styled.div`
   border-radius: 10px;
 `;
 
+export const LogoWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const AppToolBar = styled(Toolbar)`
   display: flex;
   justify-content: space-between;

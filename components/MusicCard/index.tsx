@@ -1,15 +1,11 @@
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import IconButton from "@mui/material/IconButton";
 
-import { playPause, updateActiveMusic } from "@/redux/features/music-slice";
 import { Typography } from "@mui/material";
 import { memo } from "react";
-import { useDispatch } from "react-redux";
 import Flex from "../Flex";
+import PlayPauseButton from "./PlayPauseButton";
 import { MusicCardWrapper, Wrapper } from "./style";
 interface MusicCardProps {
   image: string;
@@ -20,13 +16,6 @@ interface MusicCardProps {
 
 const MusicCard = (props: MusicCardProps) => {
   const { image, AlbumTitle, AlbumSubTitle, music } = props;
-
-  const dispatch = useDispatch();
-
-  const onPlayButtonClick = (music: MusicType) => {
-    dispatch(updateActiveMusic(music));
-    dispatch(playPause(true));
-  };
 
   return (
     <Wrapper>
@@ -55,22 +44,7 @@ const MusicCard = (props: MusicCardProps) => {
                 {AlbumSubTitle}
               </Typography>
             </CardContent>
-            <Box sx={{ pl: 1, pb: 1 }}>
-              <Flex alignitems="center">
-                <IconButton
-                  className="hidden-child"
-                  onClick={() => {
-                    onPlayButtonClick(music);
-                  }}
-                  aria-label="play/pause"
-                >
-                  <PlayArrowIcon
-                    className="playButton"
-                    sx={{ height: 38, width: 38, color: "black" }}
-                  />
-                </IconButton>
-              </Flex>
-            </Box>
+            <PlayPauseButton music={music} />
           </MusicCardWrapper>
           <CardMedia
             component="img"

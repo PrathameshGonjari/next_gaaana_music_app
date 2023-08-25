@@ -1,16 +1,13 @@
 "use client";
+import CustomAlert from "@/components/CustomAlert";
 import { Container, Grid } from "@mui/material";
 import LoginPageImage from "./components/LoginPageImage";
 import LoginPageLogo from "./components/LoginPageLogo";
-import { FC } from "react";
-import CustomAlert from "@/components/CustomAlert";
 interface LoginPageLayoutType {
   children: ChildrenType;
 }
 
-const LoginPageLayout: FC<LoginPageLayoutType> = ({ children }) => {
-
-
+const LoginPageLayout = ({ children }: LoginPageLayoutType) => {
   return (
     <>
       <LoginPageImage />
