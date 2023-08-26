@@ -10,7 +10,7 @@ const LoadingMusicList = ({ isLoading }: LoadingMusicListType) => {
   return (
     <Grid
       container
-      sx={{ display: isLoading ? "block" : "none" }}
+      sx={{ display: isLoading ? "flex" : "none" }}
       spacing={{ xs: 2, md: 3 }}
       columns={{ xs: 1, sm: 8, md: 12 }}
     >
