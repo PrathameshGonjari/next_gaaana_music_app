@@ -9,7 +9,7 @@ interface MusicListType {
 }
 
 const MusicList: FC<MusicListType> = ({ list, isLoading }) => {
-  if(!list?.length && !isLoading) return <NoData />;
+  if (!list?.length && !isLoading) return <NoData />;
   return (
     <Box
       sx={{
