@@ -12,7 +12,7 @@ export default withAuth(
     const { nextUrl, nextauth } = req;
     const { pathname } = nextUrl;
     const { token } = nextauth;
-    
+
     if (token && pathname === "/sign-in") {
       return NextResponse.redirect(new URL("/", req.url));
     }
@@ -31,3 +31,7 @@ export default withAuth(
     },
   }
 );
+
+export const config = {
+  matcher: "/((?!api|_next|static|public|favicon.ico).*)",
+};
