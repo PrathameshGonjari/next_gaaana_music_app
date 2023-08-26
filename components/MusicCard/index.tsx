@@ -6,6 +6,7 @@ import { Typography } from "@mui/material";
 import { memo } from "react";
 import Flex from "../Flex";
 import PlayPauseButton from "./PlayPauseButton";
+import PlaceHolderImage from "@/assets/images/imageplaceholder.png";
 import { MusicCardWrapper, Wrapper } from "./style";
 interface MusicCardProps {
   image: string;
@@ -49,7 +50,7 @@ const MusicCard = (props: MusicCardProps) => {
           <CardMedia
             component="img"
             sx={{ width: "25%" }}
-            image={image}
+            image={image ?? PlaceHolderImage}
             alt="Album Cover"
           />
         </Flex>
