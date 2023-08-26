@@ -47,9 +47,11 @@ declare interface FilterType {
   term: string;
   offset: number;
   limit: number;
+  songid: string;
 }
 
 declare interface MusicListTypes {
+  _id: string;
   artworkUrl100: string;
   trackName: string;
   artistName: string;

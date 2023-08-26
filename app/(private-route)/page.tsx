@@ -16,9 +16,10 @@ import { useDispatch, useSelector } from "react-redux";
 import CustomSearchBar from "./components/CustomSearchBar";
 import LoadingMusicList from "./components/LoadingMusicList";
 import MusicList from "./components/MusicList";
-import { getMusic, handleSearch } from "./helper";
+import { handleSearch } from "./helper";
 import { Message } from "@/constants";
 import { isShowToast } from "@/redux/features/toast-slice";
+import getMusic from "@/lib/getMusic";
 
 const HomePage = () => {
   const { filter, isLoading, list } = useSelector(
@@ -66,7 +67,7 @@ const HomePage = () => {
         } as ToastState;
         dispatch(isShowToast(errorToast));
       }
-      if (data?.success) {
+      if (data?.isSuccess) {
         const musicList = data?.data;
         dispatch(loadMusic(musicList));
         dispatch(updateActiveMusic(musicList[0]));
@@ -95,7 +96,7 @@ const HomePage = () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const res = (await getMusic(filter)) as any;
 
-    if (res?.success) {
+    if (res?.isSuccess) {
       dispatch(loadMusicList(res?.data));
     } else {
       // show error message

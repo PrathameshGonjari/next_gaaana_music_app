@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import services from "@/services";
+
+import getMusic from "@/lib/getMusic";
 
 export const initialMusic = {
   artistName: "",
@@ -7,33 +8,6 @@ export const initialMusic = {
   artworkUrl100: "",
   previewUrl: "",
   trackId: 0,
-};
-
-export const getMusic = async (filter: FilterType) => {
-  const customPath =
-    "?" +
-    new URLSearchParams({
-      ...filter,
-      offset: filter?.offset?.toString(),
-      limit: filter?.limit?.toString(),
-    })?.toString();
-
-  try {
-    const {
-      data: {
-        data: { data, status },
-      },
-    } = (await services.get(`getSongs${customPath}`)) as {
-      data: { data: { data: Array<Songs>; status: number } };
-    };
-
-    if (status === 200) {
-      return { data, success: true };
-    }
-    return { data: null, success: false };
-  } catch (err) {
-    return { error: err || "Something Went Wrong" };
-  }
 };
 
 let timeId: any = 0;
@@ -64,15 +38,15 @@ export const handleSearch = async (
     musicList: {
       data,
       // eslint-disable-next-line @typescript-eslint/naming-convention
-      success,
+      isSuccess,
     },
   } = (await debounceCell(onSearchCB, 500, value)) as {
-    musicList: { data: MusicListTypes[]; success: boolean };
+    musicList: { data: MusicListTypes[]; isSuccess: boolean };
   };
-  
+
   const updatedFilter = { ...filter, offset: 0, term: value };
 
-  if (success) {
+  if (isSuccess) {
     return { updatedFilter, data };
   }
   return { updatedFilter: filter, data: [] };
