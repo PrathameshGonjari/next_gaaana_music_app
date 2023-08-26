@@ -50,7 +50,7 @@ const MusicCard = (props: MusicCardProps) => {
           <CardMedia
             component="img"
             sx={{ width: "25%" }}
-            image={image ?? PlaceHolderImage}
+            image={image ?? PlaceHolderImage?.src}
             alt="Album Cover"
           />
         </Flex>

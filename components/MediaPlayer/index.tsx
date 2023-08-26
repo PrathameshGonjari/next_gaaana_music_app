@@ -157,7 +157,7 @@ const MediaPlayer = ({
             <CardMedia
               component="img"
               sx={{ width: 100, height: 80, borderRadius: 2 }}
-              image={activeMusic?.artworkUrl100 ?? PlaceHolderImage}
+              image={activeMusic?.artworkUrl100 ?? PlaceHolderImage?.src}
               alt="Album Cover"
             />
             <Box
