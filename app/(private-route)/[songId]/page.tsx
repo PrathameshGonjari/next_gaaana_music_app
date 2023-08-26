@@ -1,44 +1,41 @@
 import getMusic from "@/lib/getMusic";
 import React from "react";
 
-declare interface SongsTypes {
-  params: { songId: string };
-}
-
-const getMusicById = async (songId: string) => {
-  try {
-    const postResponse = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL as string}getSongs?songid=${songId}`,
-      {
-        method: "GET",
-      }
-    );
-    const { data } = await postResponse.json();
-    return data;
-  } catch (err) {
-    return { error: err || "Something Went Wrong" };
-  }
+const filter = {
+  term: "",
+  songid: "",
+  offset: 0,
+  limit: 12,
 };
 
+async function getSong(filters: FilterType) {
+  const data = await getMusic(filters);
+  return data?.isSuccess ? data.data : [];
+}
+
 export async function generateStaticParams() {
-  const filter = {
-    term: "",
-    songid: "",
-    offset: 0,
-    limit: 12,
-  };
-
-  const musicList = await getMusic(filter);
-
-  return musicList?.data?.map((song: MusicType) => ({
-    songId: String(song?._id),
+  const data = await getSong(filter);
+  return data.map((song: MusicType) => ({
+    params: { songId: String(song?._id) },
   }));
 }
 
-const Songs = async ({ params: { songId } }: SongsTypes) => {
-  const data = (await getMusicById(songId)) as MusicType[];
+async function SongsComponent({ params }:any) {
+  const fetchData = async () => {
+    const data = await getSong({
+      ...filter,
+      songid: params?.songId,
+    });
+    return data;
+  };
 
-  return <div style={{ marginTop: 200 }}>{data?.[0]?.artistName}</div>;
-};
+  const data = await fetchData() as MusicType[];
 
-export default Songs;
+  return (
+    <div style={{ marginTop: 200 }}>
+      {data?.length > 0 ? data[0].artistName : "Loading..."}
+    </div>
+  );
+}
+
+export default SongsComponent;

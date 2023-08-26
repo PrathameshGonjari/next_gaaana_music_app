@@ -6,6 +6,14 @@ const nextConfig = {
   experimental: {
     serverActions: true,
   },
+  async rewrites() {
+    return [
+      {
+        source: "/:songId*.html", // Old url with .html
+        destination: "/:songId*", // Redirect without .html
+      },
+    ];
+  },
   async headers() {
     return [
       {

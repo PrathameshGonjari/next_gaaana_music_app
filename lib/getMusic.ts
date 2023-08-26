@@ -12,9 +12,6 @@ export default async function getMusic(filter: FilterType) {
     `${process.env.NEXT_PUBLIC_BASE_URL as string}getSongs${customPath}`,
     {
       method: "GET",
-      next: {
-        revalidate: 60,
-      },
     }
   );
 
