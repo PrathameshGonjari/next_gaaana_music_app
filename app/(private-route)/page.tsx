@@ -20,6 +20,7 @@ import { handleSearch } from "./helper";
 import { Message } from "@/constants";
 import { isShowToast } from "@/redux/features/toast-slice";
 import getMusic from "@/lib/getMusic";
+import { Container } from "@mui/material";
 
 const HomePage = () => {
   const { filter, isLoading, list } = useSelector(
@@ -113,10 +114,12 @@ const HomePage = () => {
   return (
     <Flex direction="column" style={{ marginTop: 100 }}>
       <CustomSearchBar filter={filter} onFilterChange={onSearch} />
-      <MusicList isLoading={isLoading} list={list} />
-      <Flex ref={triggerRef}>
-        <LoadingMusicList isLoading={isLoading} />
-      </Flex>
+      <Container>
+        <MusicList isLoading={isLoading} list={list} />
+        <Flex ref={triggerRef}>
+          <LoadingMusicList isLoading={isLoading} />
+        </Flex>
+      </Container>
     </Flex>
   );
 };

@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import { memo, useEffect, useRef, useState } from "react";
 
+import PlaceHolderImage from "@/assets/images/imageplaceholder.png";
 import Forward10Icon from "@mui/icons-material/Forward10";
 import PauseCircleIcon from "@mui/icons-material/PauseCircle";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
@@ -19,7 +20,6 @@ import Replay10Icon from "@mui/icons-material/Replay10";
 import StopCircleIcon from "@mui/icons-material/StopCircle";
 import Flex from "../Flex";
 import { IconStyle, MediaContainerWrapper, TinyText } from "./style";
-
 interface MediaPlayerType {
   isPlayMusic: boolean;
   activeMusic: MusicType;
@@ -157,7 +157,7 @@ const MediaPlayer = ({
             <CardMedia
               component="img"
               sx={{ width: 100, height: 80, borderRadius: 2 }}
-              image={activeMusic?.artworkUrl100}
+              image={activeMusic?.artworkUrl100 ?? PlaceHolderImage?.src}
               alt="Album Cover"
             />
             <Box
