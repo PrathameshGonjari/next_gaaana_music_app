@@ -1,6 +1,12 @@
 import getMusic from "@/lib/getMusic";
 import React from "react";
 
+declare interface SongComponetType {
+  params: {
+    songId: string;
+  };
+}
+
 const filter = {
   term: "",
   songid: "",
@@ -20,7 +26,7 @@ export async function generateStaticParams() {
   }));
 }
 
-async function SongsComponent({ params }:any) {
+async function SongsComponent({ params }: SongComponetType) {
   const fetchData = async () => {
     const data = await getSong({
       ...filter,
@@ -29,7 +35,7 @@ async function SongsComponent({ params }:any) {
     return data;
   };
 
-  const data = await fetchData() as MusicType[];
+  const data = (await fetchData()) as MusicType[];
 
   return (
     <div style={{ marginTop: 200 }}>
