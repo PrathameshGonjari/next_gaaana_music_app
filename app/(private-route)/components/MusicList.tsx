@@ -26,6 +26,7 @@ const MusicList: FC<MusicListType> = ({ list, isLoading }) => {
           return (
             <Grid item xs={2} sm={4} md={4} key={key}>
               <MusicCard
+                id={music._id}
                 music={music}
                 image={music.artworkUrl100}
                 AlbumTitle={music.trackName}

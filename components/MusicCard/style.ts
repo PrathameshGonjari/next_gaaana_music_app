@@ -17,6 +17,14 @@ export const Wrapper = styled.div`
   #parent:hover {
     opacity: 0.5;
   }
+  .playButton {
+    &:hover {
+      transform: scale(1.3);
+    }
+  }
+  .pauseButton {
+    visibility: visible;
+  }
 `;
 
 export const PlayPauseWrapper = styled(Box)`

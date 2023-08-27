@@ -8,7 +8,9 @@ import Flex from "../Flex";
 import PlayPauseButton from "./PlayPauseButton";
 import PlaceHolderImage from "@/assets/images/imageplaceholder.png";
 import { MusicCardWrapper, Wrapper } from "./style";
+import { useRouter } from "next/navigation";
 interface MusicCardProps {
+  id: string;
   image: string;
   AlbumTitle: string;
   AlbumSubTitle: string;
@@ -16,13 +18,15 @@ interface MusicCardProps {
 }
 
 const MusicCard = (props: MusicCardProps) => {
-  const { image, AlbumTitle, AlbumSubTitle, music } = props;
+  const { id, image, AlbumTitle, AlbumSubTitle, music } = props;
+
+  const router = useRouter();
 
   return (
     <Wrapper>
-      <Card>
+      <Card onClick={() => router.push(`/${id}`)}>
         <Flex>
-          <MusicCardWrapper>
+          <MusicCardWrapper id="parent">
             <CardContent sx={{ flex: "1 0 auto" }}>
               <Typography
                 sx={{
@@ -44,7 +48,7 @@ const MusicCard = (props: MusicCardProps) => {
               >
                 {AlbumSubTitle}
               </Typography>
-            </CardContent>
+            </CardContent>  
             <PlayPauseButton music={music} />
           </MusicCardWrapper>
           <CardMedia
