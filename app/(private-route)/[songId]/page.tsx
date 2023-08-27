@@ -1,6 +1,7 @@
 import getMusic from "@/lib/getMusic";
 import { Container } from "@mui/material";
 import DetailCard from "../../../components/DetailCard";
+import HeaderBackButton from "@/components/HeaderBackButton";
 
 declare interface SongComponetType {
   params: {
@@ -39,7 +40,8 @@ async function SongsComponent({ params }: SongComponetType) {
   const data = (await fetchData()) as MusicType[];
 
   return (
-    <Container>
+    <Container style={{ marginTop:  80 }}>
+      <HeaderBackButton title={""} />
       <DetailCard
         trackName={data?.[0]?.trackName}
         artistName={data?.[0]?.artistName}

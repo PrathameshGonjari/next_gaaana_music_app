@@ -22,7 +22,7 @@ const DetailCard = ({
   artworkUrl100
 }: DetailCardType) => {
   return (
-    <Card style={{ marginTop: 100 }}>
+    <Card>
       <MainWrapper>
         <Flex>
           <TitleWrapper>
