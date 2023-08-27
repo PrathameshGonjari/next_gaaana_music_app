@@ -56,6 +56,10 @@ declare interface MusicListTypes {
   trackName: string;
   artistName: string;
   trackId: number;
+  country: string;
+  longDescription: string;
+  shortDescription: string;
+  collectionName: string;
 }
 
 declare interface MusicType extends MusicListTypes {

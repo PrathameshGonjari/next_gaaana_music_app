@@ -1,5 +1,6 @@
 import getMusic from "@/lib/getMusic";
-import React from "react";
+import { Container } from "@mui/material";
+import DetailCard from "../../../components/DetailCard";
 
 declare interface SongComponetType {
   params: {
@@ -38,9 +39,17 @@ async function SongsComponent({ params }: SongComponetType) {
   const data = (await fetchData()) as MusicType[];
 
   return (
-    <div style={{ marginTop: 200 }}>
-      {data?.length > 0 ? data[0].artistName : "Loading..."}
-    </div>
+    <Container>
+      <DetailCard
+        trackName={data?.[0]?.trackName}
+        artistName={data?.[0]?.artistName}
+        country={data?.[0]?.country}
+        collectionName={data?.[0]?.collectionName}
+        shortDescription={data?.[0]?.shortDescription}
+        artworkUrl100={data?.[0]?.artworkUrl100}
+        longDescription={data?.[0]?.longDescription}
+      />
+    </Container>
   );
 }
 
