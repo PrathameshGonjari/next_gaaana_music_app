@@ -2,6 +2,76 @@ import startDb from "@/lib/db";
 import SongModal from "@/models/songModel";
 import { NextResponse, NextRequest } from "next/server";
 
+
+/**
+ * @swagger
+ * /getSongs:
+ *   get:
+ *    summary: Get Songs Data
+ *    description: Returns a list of songs from the database. Users can search and get more songs by providing search and offset query parameters.
+ *    tags:
+ *      - Songs
+ *    parameters:
+ *      - name: term
+ *        in: query
+ *        description: The search query to filter songs by artist name, track name, and description.
+ *        required: false
+ *        type: string
+ *      - name: offset
+ *        in: query
+ *        description: The offset query for getting new songs from the database.
+ *        required: false
+ *        type: string
+ *      - name: limit
+ *        in: query
+ *        description: The limit query for getting a limited number of songs from the database.
+ *        required: false
+ *        type: string
+ *      - name: songid
+ *        in: query
+ *        description: The query parameter to retrieve a specific song by ID from the database.
+ *        required: false
+ *        type: string
+ *    responses:
+ *      200:
+ *        description: Successful response with song data
+ *        content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Song'
+ *                 message:
+ *                   type: string
+ *                 status:
+ *                   type: integer
+ *                   example: 200
+ *      400:
+ *        description: Bad request, invalid parameters provided.
+ *        content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Invalid parameters provided.
+ *      500:
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: An error occurred while processing the request.
+ *      
+ */
+
 type Message = string;
 
 type NewResponse = NextResponse<{ message?: Message; error?: string }>;

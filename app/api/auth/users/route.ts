@@ -2,6 +2,50 @@ import startDb from "@/lib/db";
 import UserModal from "@/models/userModel";
 import { NextResponse } from "next/server";
 
+/**
+ * @swagger
+ * /api/users:
+ *   post:
+ *     summary: Create a new user
+ *     tags:
+ *       - Users
+ *     operationId: createUser
+ *     consumes:
+ *       - application/json
+ *     produces:
+ *       - application/json
+ *     requestBody:
+ *       description: User data for creating a new user
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: "#/components/schemas/NewUserRequest"
+ *     responses:
+ *       200:
+ *         description: User created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/NewUserResponse"
+ *       422:
+ *         description: Email is already in use
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *               example:
+ *                 error: Email is already in use!
+ *  
+ * 
+ */
+
+
+
+                
 interface NewUserRequest {
   name: string;
   email: string;

@@ -1,3 +1,44 @@
+/**
+ * @swagger
+ * /postSongs:
+ *   post:
+ *     summary: Add Songs Data
+ *     description: Fetches songs data from iTunes API and adds them to the database.
+ *     tags:
+ *       - Songs
+ *     responses:
+ *       '200':
+ *         description: Successful response after adding songs to the database.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: success
+ *       '400':
+ *         description: Bad request, invalid parameters provided.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Invalid parameters provided.
+ *       '500':
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: An error occurred while processing the request.
+ */
+
 import startDb from "@/lib/db";
 import SongModal from "@/models/songModel";
 import axios from "axios";
